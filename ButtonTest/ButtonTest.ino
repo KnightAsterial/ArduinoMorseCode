@@ -30,18 +30,16 @@ void loop() {
   lcd.setCursor(11, 1);
   lcd.print(numClicks);
 
-  if(digitalRead(buttonPin) == HIGH){
-    if(previousState == false){
+  if(digitalRead(buttonPin) == HIGH){//Check if response from button indicates that it is pressed
+    if(previousState == false){//Checks if it has already run the down sequence if no then runs daid down sequence
       numClicks += 1;
       playSong();
+      previousState = true;
     }
-    previousState = true;
   }
-  else{
+  else {
     previousState = false;
   }
-
-  
 }
 
 void playSong(){
