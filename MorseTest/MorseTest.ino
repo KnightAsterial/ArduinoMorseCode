@@ -59,6 +59,7 @@ void loop() {
   if(digitalRead(wordButtonPin) == HIGH){
     if(previousWordState == false){
       decoded += interpret(code);
+      code = "";
       lcd.setCursor(0,1);
       lcd.print(decoded);
     }
