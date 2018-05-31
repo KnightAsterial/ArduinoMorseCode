@@ -7,7 +7,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 const int buttonPin = 7;
 bool previousState = false;
-int timeSinceLastChange = 0;
+long timeSinceLastChange = 0;
 String code = "";
 
 void setup() {
