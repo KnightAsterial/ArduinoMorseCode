@@ -7,8 +7,14 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 const int buttonPin = 7;
 bool previousState = false;
+
+const int wordButtonPin = 6;
+bool previousWordState = false;
+
 long timeSinceLastChange = 0;
 String code = "";
+
+String decoded = "";
 
 void setup() {
   // set up the LCD's number of columns and rows:
@@ -17,6 +23,7 @@ void setup() {
   timeSinceLastChange = millis();
 
   pinMode(buttonPin, INPUT);
+  pinMode(wordButtonPin, INPUT);
 }
 
 void loop() {
@@ -48,7 +55,29 @@ void loop() {
     previousState = false;
   }
 
+  //----
+  if(digitalRead(wordButtonPin) == HIGH){
+    if(previousWordState == false){
+      decoded += interpret(code);
+      lcd.setCursor(0,1);
+      lcd.print(decoded);
+    }
+    previousWordState = true;
+  }
+  else{
+    previousWordState = false;
+  }
+
   
+}
+
+String interpret(String code){
+  if(code == "."){
+    return "yep";
+  }
+  else{
+    return "nope";
+  }
 }
 
 
