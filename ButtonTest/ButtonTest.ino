@@ -8,6 +8,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 const int buttonPin = 7;
 int numClicks = 0;
+long pressLength = 0;
 bool previousState = false;
 
 void setup() {
@@ -30,19 +31,29 @@ void loop() {
   lcd.setCursor(11, 1);
   lcd.print(numClicks);
 
-  if(digitalRead(buttonPin) == HIGH){//Check if response from button indicates that it is pressed
+  if(digitalRead(buttonPin) == HIGH){//Check if response from button indicates that it is currently being pressed
     if(previousState == false){//Checks if it has already run the down sequence if no then runs daid down sequence
       numClicks += 1;
       playSong();
       previousState = true;
     }
+    lengthOfPress();
   }
   else {
+    if(pressLength != 0)
+    {
+      //store for output
+    }
+    pressLength = 0;
     previousState = false;
   }
 }
 
-void playSong(){
+void lengthOfPress() {
+  pressLength++;
+}
+
+void playSong() {
     // notes in the melody:
     int melody[] = {
       NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
