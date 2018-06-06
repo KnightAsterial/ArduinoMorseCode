@@ -74,8 +74,9 @@ void loop() {
     previousWordState = false;
   }
 
-  if(code == "AFRICA"){
+  if(decoded == "AFRICA"){
     playSong();
+    decoded = "";
     code = "";
     lcd.setCursor(0,1);
     lcd.print("                   ");
