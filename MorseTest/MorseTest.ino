@@ -13,6 +13,7 @@ const int wordButtonPin = 6;
 bool previousWordState = false;
 
 long timeSinceLastChange = 0;
+
 String code = "";
 
 String decoded = "";
@@ -22,12 +23,13 @@ void setup() {
   lcd.begin(16, 2);
 
   timeSinceLastChange = millis();
-
+  
   pinMode(buttonPin, INPUT);
   pinMode(wordButtonPin, INPUT);
 }
 
 void loop() {
+  
   // set the cursor to column 0, line 1
   if(code.length() > 16){
     lcd.setCursor(0,0);
