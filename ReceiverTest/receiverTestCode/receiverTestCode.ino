@@ -1,13 +1,38 @@
-int sensor = -99; //change this
+int sensor = -99; //change this to the board value
 int state = LOW;
 int val = 0;
 
+long timeSinceLastChangeIR = 0;
+bool previousStateIR = false;
+String codedString = "";
+
 void setup() {
-  // put your setup code here, to run once:
+  timeSinceLastChangeIR = millis();
+  pinMode(sensor, INPUT);
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  val = digitalRead(sensor);
+  if(val == HIGH){
+    if(previousStateIR == false){
+      timeSinceLastChangeIR = millis();
+    }
+    previousStateIR = true;
+  }
+  else{
+    if(previousStateIR == true){
+      if(millis()-timeSinceLastChangeIR > 300){
+        codedString += "-";
+      }
+      else{
+        codedString += ".";
+      }
+      timeSinceLastChangeIR = millis();
+    }
+    previousStateIR = false;
+  }
+  //codedString stores all of the data 
+  //just need to convert and output to the LCD
 
 }
